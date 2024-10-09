@@ -1,0 +1,77 @@
+Nível Iniciante
+
+    Operações Básicas com Vetores
+        Crie um vetor com 15 números inteiros aleatórios.
+        Calcule a soma, média e o desvio padrão dos valores do vetor.
+        Filtre os valores que são maiores que a média do vetor.
+
+    Manipulação de Data Frames
+        Crie um data frame que contenha as seguintes colunas: Nome, Idade, Altura, e Peso para cinco pessoas.
+        Calcule a média da idade e do peso das pessoas.
+        Adicione uma nova coluna chamada IMC que calcula o Índice de Massa Corporal de cada pessoa (IMC = Peso/Altura²).
+
+    Estruturas de Controle
+        Escreva um script que pergunte ao usuário um número e, usando uma estrutura if-else, informe se o número é positivo, negativo ou zero.
+        Use um loop for para imprimir os números de 1 a 10.
+
+    Uso de Funções Básicas
+        Crie uma função em R que receba um vetor de números como entrada e retorne o valor máximo e mínimo do vetor.
+        Teste a função com diferentes conjuntos de dados.
+
+    Trabalhando com Strings
+        Crie um vetor de nomes de cinco pessoas.
+        Converta todos os nomes para letras maiúsculas e, em seguida, para letras minúsculas.
+        Verifique se algum nome começa com a letra "A".
+
+Nível Intermediário
+
+    Análise de Dados Simples
+        Use a função sample() para criar um vetor com 100 números aleatórios entre 1 e 20.
+        Crie uma tabela de frequência para esses números.
+        Faça um gráfico de barras que mostre a distribuição desses números.
+
+    Funções Personalizadas
+        Escreva uma função que receba dois números como entrada e retorne a soma, subtração, multiplicação e divisão desses números.
+        Modifique a função para retornar uma mensagem de erro se a divisão por zero for tentada.
+
+    Manipulação de Matrizes
+        Crie uma matriz 6x6 com números aleatórios.
+        Calcule a soma dos elementos da diagonal principal da matriz.
+        Transponha a matriz e multiplique-a pela matriz original.
+
+    Leitura e Escrita de Arquivos
+        Leia um arquivo CSV contendo dados de vendas.
+        Calcule o total de vendas por produto.
+        Salve os resultados em um novo arquivo CSV.
+
+    Trabalhando com Listas
+        Crie uma lista que contenha vetores de diferentes tipos de dados (numéricos, caracteres, lógicos).
+        Acesse e modifique elementos individuais da lista.
+        Adicione novos elementos à lista.
+
+Nível Avançado
+
+    Trabalhando com Conjuntos de Dados
+        Importe o conjunto de dados iris disponível no R.
+        Calcule a média, mediana e variância para cada uma das variáveis numéricas.
+        Faça um gráfico de dispersão que mostre a relação entre o comprimento e a largura das pétalas, diferenciando as espécies por cores.
+
+    Análise de Séries Temporais
+        Gere uma série temporal simples de dados com a função ts().
+        Crie um gráfico para visualizar a série temporal.
+        Aplique uma média móvel à série para suavizar os dados.
+
+    Análise de Regressão Linear
+        Crie um modelo de regressão linear usando o conjunto de dados mtcars para prever a milhagem do carro (mpg) com base no peso (wt) e na potência (hp).
+        Interprete os resultados do modelo, incluindo os coeficientes e a significância estatística.
+        Faça um gráfico de dispersão que mostre a relação entre o peso e a milhagem, adicionando a linha de regressão ajustada.
+
+    Clusterização
+        Utilize o conjunto de dados iris.
+        Aplique a técnica de k-means para agrupar as flores em três clusters.
+        Visualize os clusters em um gráfico de dispersão.
+
+    Análise de Dados com dplyr
+        Use a biblioteca dplyr para manipular o conjunto de dados mtcars.
+        Filtre os carros com mais de 6 cilindros.
+        Ordene os carros pelo consumo de combustível (mpg) em ordem decrescente e selecione apenas as colunas mpg, cyl e hp.
