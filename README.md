@@ -1,6 +1,8 @@
 # R
-Repositório dedicado a projetos envolvendo a linguagem de programação R. 
+# Repositório dedicado a projetos envolvendo a linguagem de programação R
 
-| print("Hello World!")|
-
+```r
+# Exibe "Hello, World!" no console
+print("Hello, World!")
+```
 ![R Logo](https://www.r-project.org/logo/Rlogo.png)
