@@ -1,0 +1,85 @@
+library(ggplot2)
+library(scatterplot3d)
+
+# Parâmetros do PSO
+Maxiter <- 10000
+QtdParticulas <- 300
+LimiteP <- 5.12
+LimiteN <- -5.12
+dimensoes <- 5
+
+inercia <- 0.7
+cognitiva <- 1.5
+social <- 1.5
+
+# Função Rastrigin
+fitnessInicial <- function(x) {
+  10 * length(x) + sum(x^2 - 10 * cos(2 * pi * x))
+}
+
+# Penalização
+penalizarFitness <- function(x) {
+  penalidade <- 1000
+  g <- sin(2 * pi * x) + 0.5
+  h <- cos(2 * pi * x) + 0.5
+  sum(pmax(g, 0)) + sum(abs(h)) * penalidade
+}
+
+# Função Objetiva
+funcaoObjetiva <- function(x) {
+  fitnessInicial(x) + penalizarFitness(x)
+}
+
+# PSO
+funcaoPSO <- function(QtdParticulas, Dimensoes, Max, Min, MaxIter, inercia, cognitiva, social) {
+  posicao <- matrix(runif(QtdParticulas * Dimensoes, Min, Max), QtdParticulas, Dimensoes)
+  velocidade <- matrix(runif(QtdParticulas * Dimensoes, -abs(Max - Min), abs(Max - Min)), QtdParticulas, Dimensoes)
+  
+  pbest <- posicao
+  fitnessPbest <- apply(posicao, 1, funcaoObjetiva)
+  gbest <- pbest[which.min(fitnessPbest), ]
+  fitnessGbest <- min(fitnessPbest)
+  
+  historicoGbest <- numeric(MaxIter)
+  historicoMedia <- numeric(MaxIter)
+  historicoDesvio <- numeric(MaxIter)
+  
+  for (i in 1:MaxIter) {
+    r1 <- matrix(runif(QtdParticulas * Dimensoes), QtdParticulas, Dimensoes)
+    r2 <- matrix(runif(QtdParticulas * Dimensoes), QtdParticulas, Dimensoes)
+    
+    velocidade <- inercia * velocidade + cognitiva * r1 * (pbest - posicao) + social * r2 * (gbest - posicao)
+    velocidade <- pmax(pmin(velocidade, abs(Max - Min)), -abs(Max - Min))
+    
+    posicao <- pmax(pmin(posicao + velocidade, Max), Min)
+    fitnessAtual <- apply(posicao, 1, funcaoObjetiva)
+    
+    melhora <- fitnessAtual < fitnessPbest
+    pbest[melhora, ] <- posicao[melhora, ]
+    fitnessPbest[melhora] <- fitnessAtual[melhora]
+    
+    if (min(fitnessAtual) < fitnessGbest) {
+      gbest <- posicao[which.min(fitnessAtual), ]
+      fitnessGbest <- min(fitnessAtual)
+    }
+    
+    historicoGbest[i] <- fitnessGbest
+    historicoMedia[i] <- mean(fitnessAtual, na.rm = TRUE)
+    historicoDesvio[i] <- ifelse(length(fitnessAtual) > 1, sd(fitnessAtual, na.rm = TRUE), 0)
+    
+    if (i %% 100 == 0) cat("Iteração:", i, "- Melhor Fitness:", fitnessGbest, "\n")
+  }
+  
+  list(posicao = gbest, fitness = fitnessGbest, historicoGbest, historicoMedia, historicoDesvio)
+}
+
+resultado <- funcaoPSO(QtdParticulas, dimensoes, LimiteP, LimiteN, Maxiter, inercia, cognitiva, social)
+
+dados <- data.frame(Iteracao = 1:Maxiter, MelhorFitness = resultado[[3]], MediaFitness = resultado[[4]], DesvioPadraoFitness = resultado[[5]])
+
+ggplot(dados, aes(Iteracao, MelhorFitness)) + geom_line(color = "blue") + ggtitle("Melhor Fitness por Geração") + theme_minimal()
+ggplot(dados, aes(Iteracao, MediaFitness)) + geom_line(color = "red") + ggtitle("Média da Fitness por Geração") + theme_minimal()
+ggplot(dados, aes(Iteracao, DesvioPadraoFitness)) + geom_line(color = "green") + ggtitle("Desvio Padrão da Fitness por Geração") + theme_minimal()
+
+cat("Melhor solução encontrada:\n", "[", resultado$posicao, "]", "\n")
+cat("Valor da fitness:\n", resultado$fitness, "\n")
